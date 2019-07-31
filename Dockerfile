@@ -1,10 +1,10 @@
 FROM alpine as nweb
 RUN apk add gcc libc-dev
-# https://gist.githubusercontent.com/Suika/a0fab0e19745285edaf84cd4923456be/raw/3758ad5fb2cad3cc206946d57bcdd51ee4776539/nweb24.c
 ADD /nweb24.c /nweb24.c
 RUN cc -O2 nweb24.c -o nweb
 
 FROM woahbase/alpine-ng as ngbuild
+ADD https://api.github.com/repos/floogulinc/hydrus-web/git/refs/heads/master /version.json
 RUN git clone https://github.com/floogulinc/hydrus-web /tmp/hydrus-web
 WORKDIR /tmp/hydrus-web
 RUN npm install --no-interactive
